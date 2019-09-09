@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-// import logo from "./logo.svg"
 import "./App.css"
 import Header from "./containers/Header"
 import GamesContainer from "./containers/GamesContainer"
 import Favorites from "./containers/Favorites"
+
 export default class App extends Component {
   state = { favs: [] }
 

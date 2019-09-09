@@ -14,7 +14,6 @@ export default class AddForm extends React.Component {
   }
 
   render() {
-    console.log("Form Props:", this.props)
     return (
       <div>
         <h5>Add a Game here</h5>
