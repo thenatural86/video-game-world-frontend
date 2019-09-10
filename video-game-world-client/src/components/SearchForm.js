@@ -2,7 +2,6 @@ import React from "react"
 
 export default class SearchForm extends React.Component {
   render() {
-    console.log(this.props)
     return (
       <div>
         <h4>Search for a Game here</h4>

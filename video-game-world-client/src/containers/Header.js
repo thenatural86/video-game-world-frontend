@@ -5,7 +5,8 @@ class Header extends React.Component {
     const headerContainer = {
       backgroundColor: "green",
       display: "flex",
-      justifyContent: "space-evenly"
+      justifyContent: "space-evenly",
+      borderRadius: "15px"
     }
 
     return (
