@@ -3,9 +3,10 @@ import GameCard from "../components/GameCard"
 import AddForm from "../components/AddForm"
 import SearchForm from "../components/SearchForm"
 import ReviewContainer from "./ReviewContainer"
+import ShowPage from "../components/ShowPage"
 
 export default class GamesContainer extends React.Component {
-  state = { games: [], searchTerm: "", reviews: [] }
+  state = { games: [], searchTerm: "", reviews: [], show: false }
 
   componentDidMount() {
     fetch("http://localhost:3000/games")
@@ -40,6 +41,18 @@ export default class GamesContainer extends React.Component {
     this.setState({ reviews: gameReview })
   }
 
+  addToReview = reviewObj => {
+    this.setState({ reviews: [reviewObj, ...this.state.reviews] })
+  }
+
+  handleShowPage = () => {
+    console.log("click")
+    // {image is clicked ? render ShowPage component : render welcome route}
+    this.setState({ show: !this.state.show })
+
+    console.log(this.state.show)
+  }
+
   render() {
     // console.log(this.state)
     const containerStyle = {
@@ -47,6 +60,7 @@ export default class GamesContainer extends React.Component {
       display: "flex",
       flexFlow: "wrap",
       justifyContent: "space-evenly",
+      alignContent: "flex-start",
       width: "45%",
       borderRadius: "15px"
     }
@@ -58,15 +72,16 @@ export default class GamesContainer extends React.Component {
           game={gameObj}
           clickHandler={this.props.clickHandler}
           clickHandler2={this.handleReview}
+          clickHandler3={this.handleShowPage}
         />
       )
     })
-
+    console.log(games)
     return (
       <div style={containerStyle} className="gamesCollection">
         <ReviewContainer
           reviews={this.state.reviews}
-          // changeHandler={this.handleReview}
+          submitHandler={this.addToReview}
         />
         <SearchForm
           value={this.state.searchTerm}
@@ -74,6 +89,8 @@ export default class GamesContainer extends React.Component {
         />
         <AddForm submitHandler={this.addToGames} />
         {games}
+
+        {this.state.show ? <ShowPage games={this.state.games} /> : null}
       </div>
     )
   }

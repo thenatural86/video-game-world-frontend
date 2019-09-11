@@ -7,6 +7,7 @@ export default class Favorites extends React.Component {
       display: "flex",
       flexFlow: "wrap",
       justifyContent: "space-evenly",
+      alignContent: "flex-start",
       backgroundColor: "orange",
       width: "35%",
       borderRadius: "15px"
