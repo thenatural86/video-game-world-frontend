@@ -9,7 +9,7 @@ export default class AddForm extends React.Component {
 
   submitHandler = e => {
     e.preventDefault()
-    this.props.submitHandler(this.state)
+    this.props.addToGames(this.state)
     this.setState({ title: "", genre: "", releaseYear: "", image: "" })
   }
 

@@ -14,12 +14,10 @@ export default class App extends Component {
     if (!this.state.favs.includes(gameObj)) {
       let newArray = [...this.state.favs, gameObj]
       this.setState({ favs: newArray })
+    } else {
+      let newArray = this.state.favs.filter(game => game !== gameObj)
+      this.setState({ favs: newArray })
     }
-  }
-
-  removeFromFav = gameObj => {
-    let newArray = this.state.favs.filter(game => game !== gameObj)
-    this.setState({ favs: newArray })
   }
 
   render() {
@@ -29,7 +27,7 @@ export default class App extends Component {
       justifyContent: "space-evenly",
       flexFlow: "wrap",
       width: "100%",
-      backgroundColor: "lemonchiffon"
+      backgroundColor: "#cddcff8c"
     }
 
     return (
@@ -43,7 +41,7 @@ export default class App extends Component {
                 <div>
                   <GamesContainer
                     games={this.state.games}
-                    clickHandler={this.addToFav}
+                    addToFav={this.addToFav}
                   />
                 </div>
               )
@@ -52,16 +50,13 @@ export default class App extends Component {
           <Route
             path="/favs"
             render={() => (
-              <Favorites
-                favs={this.state.favs}
-                clickHandler={this.removeFromFav}
-              />
+              <Favorites favs={this.state.favs} addToFav={this.addToFav} />
             )}
           />
           <Route
             path="/home"
             render={() => (
-              <div style={containerStyle}>
+              <div style={containerStyle} className={"bodyCollection"}>
                 <Header />
                 <div
                   style={{
@@ -69,11 +64,8 @@ export default class App extends Component {
                     justifyContent: "space-evenly"
                   }}
                 >
-                  <GamesContainer clickHandler={this.addToFav} />
-                  <Favorites
-                    favs={this.state.favs}
-                    clickHandler={this.removeFromFav}
-                  />
+                  <GamesContainer addToFav={this.addToFav} />
+                  <Favorites favs={this.state.favs} addToFav={this.addToFav} />
                 </div>
               </div>
             )}

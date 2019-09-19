@@ -6,7 +6,7 @@ import ReviewContainer from "./ReviewContainer"
 import ShowPage from "../components/ShowPage"
 
 export default class GamesContainer extends React.Component {
-  state = { games: [], searchTerm: "", reviews: [], show: false }
+  state = { games: [], searchTerm: "", reviews: [], show: false, gameShow: [] }
 
   componentDidMount() {
     fetch("http://localhost:3000/games")
@@ -45,23 +45,19 @@ export default class GamesContainer extends React.Component {
     this.setState({ reviews: [reviewObj, ...this.state.reviews] })
   }
 
-  handleShowPage = () => {
-    console.log("click")
-    // {image is clicked ? render ShowPage component : render welcome route}
-    this.setState({ show: !this.state.show })
-
-    console.log(this.state.show)
+  handleShowPage = gameId => {
+    let game = this.state.games.find(game => game.id === gameId)
+    this.setState({ show: !this.state.show, gameShow: game })
   }
 
   render() {
-    // console.log(this.state)
     const containerStyle = {
       backgroundColor: "cyan",
       display: "flex",
       flexFlow: "wrap",
       justifyContent: "space-evenly",
       alignContent: "flex-start",
-      width: "45%",
+      width: "70%",
       borderRadius: "15px"
     }
 
@@ -70,28 +66,35 @@ export default class GamesContainer extends React.Component {
         <GameCard
           key={gameObj.id}
           game={gameObj}
-          clickHandler={this.props.clickHandler}
-          clickHandler2={this.handleReview}
-          clickHandler3={this.handleShowPage}
+          addToFav={this.props.addToFav}
+          handleReview={this.handleReview}
+          handleShowPage={this.handleShowPage}
         />
       )
     })
-    console.log(games)
     return (
-      <div style={containerStyle} className="gamesCollection">
-        <ReviewContainer
-          reviews={this.state.reviews}
-          submitHandler={this.addToReview}
-        />
-        <SearchForm
-          value={this.state.searchTerm}
-          changeHandler={this.searchChangeHandler}
-        />
-        <AddForm submitHandler={this.addToGames} />
-        {games}
-
-        {this.state.show ? <ShowPage games={this.state.games} /> : null}
+      <div>
+        <div style={containerStyle} className="gamesCollection">
+          <ReviewContainer
+            reviews={this.state.reviews}
+            addToReview={this.addToReview}
+          />
+          <SearchForm
+            value={this.state.searchTerm}
+            searchChangeHandler={this.searchChangeHandler}
+          />
+          <AddForm addToGames={this.addToGames} />
+          {games}
+          {this.state.show ? (
+            <ShowPage
+              games={this.state.gameShow}
+              handleShowPage={this.handleShowPage}
+            />
+          ) : null}
+        </div>
       </div>
     )
   }
 }
+
+// add state of shown game, clickHandler takes gameObj, setting state to true and showing called game

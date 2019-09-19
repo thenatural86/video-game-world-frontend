@@ -9,7 +9,7 @@ export default class ReviewForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.submitHandler(this.state.review)
+    this.props.addToReview(this.state.review)
     this.setState({ review: "" })
     console.log(this.props)
   }

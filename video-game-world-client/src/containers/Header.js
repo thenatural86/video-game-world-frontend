@@ -3,7 +3,7 @@ import React from "react"
 class Header extends React.Component {
   render() {
     const headerContainer = {
-      backgroundColor: "green",
+      backgroundColor: "#f08cac",
       display: "flex",
       justifyContent: "space-evenly",
       borderRadius: "15px"

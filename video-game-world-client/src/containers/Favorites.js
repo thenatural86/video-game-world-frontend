@@ -1,5 +1,6 @@
 import React from "react"
 import GameCard from "../components/GameCard"
+// import Favorites from './Favorites';
 
 export default class Favorites extends React.Component {
   render() {
@@ -8,8 +9,8 @@ export default class Favorites extends React.Component {
       flexFlow: "wrap",
       justifyContent: "space-evenly",
       alignContent: "flex-start",
-      backgroundColor: "orange",
-      width: "35%",
+      backgroundColor: "#6eff007a",
+      width: "100%",
       borderRadius: "15px"
     }
 
@@ -18,14 +19,14 @@ export default class Favorites extends React.Component {
         <GameCard
           key={gameObj.id}
           game={gameObj}
-          clickHandler={this.props.clickHandler}
+          addToFav={this.props.addToFav}
         />
       )
     })
 
     return (
       <div className="favContainer" style={favContainer}>
-        <h1>I'm the Fav Container!</h1>
+        <h1>Your Favorite Games!</h1>
         {game}
       </div>
     )

@@ -15,7 +15,7 @@ export default class SearchForm extends React.Component {
           name="search"
           placeholder="search for game"
           value={this.props.value}
-          onChange={e => this.props.changeHandler(e.target.value)}
+          onChange={e => this.props.searchChangeHandler(e.target.value)}
         />
       </div>
     )
